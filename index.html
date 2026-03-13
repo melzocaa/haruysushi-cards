@@ -732,6 +732,11 @@
             }, 300);
         }
 
+        //fechar modal na area escura fora do conteudo
+        modalDetalhes.addEventListener('click', function(e) {
+            if (e.target === modalDetalhes) fecharModalDetalhes();
+        });
+
         //carrinho
         //array para armazenar itens do carrinho
         let carrinho = [];
