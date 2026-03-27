@@ -98,429 +98,79 @@
 
         <!-- menu categoria inicio-->
         <nav id="nav-categorias" class="overflow-x-auto whitespace-nowrap snap-x flex gap-2 mt-6 pb-1">
-            <button data-cat="sushi"
-                class="snap-start px-4 py-1 rounded-full bg-primary text-white font-bold text-sm transition-transform duration-150 cursor-pointer flex-shrink-0 btn-cat">
-                Sushi
-            </button>
-            <button data-cat="temakis"
-                class="snap-start px-4 py-1 rounded-full bg-primary text-white font-bold text-sm transition-transform duration-150 cursor-pointer flex-shrink-0 btn-cat">
-                Temakis
-            </button>
-            <button data-cat="bebidas"
-                class="snap-start px-4 py-1 rounded-full bg-primary text-white font-bold text-sm transition-transform duration-150 cursor-pointer flex-shrink-0 btn-cat">
-                Bebidas
-            </button>
-            <button data-cat="sobremesas"
-                class="snap-start px-4 py-1 rounded-full bg-primary text-white font-bold text-sm transition-transform duration-150 cursor-pointer flex-shrink-0 btn-cat">
-                Sobremesas
-            </button>
+            <div class="animate-pulse flex gap-2">
+                <div class="h-8 w-20 bg gray rounded-full"></div>
+                <div class="h-8 w-20 bg gray rounded-full"></div>
+                <div class="h-8 w-20 bg gray rounded-full"></div>
+            </div>
         </nav>
         <!--menu categoria fim-->
-
-        <!-- cardapio -->
-        <div id="cat-sushi" class="categoria-conteudo">
-            <div class="text-left text-dark font-extrabold text-[22px] mt-8 mb-4">Sushis e Combinados</div>
-            <div class="grid-cols-2 gap-4">
-                <div class="bg-white rounded-[20px] p-3 shadow-sm border border-gray-100 relative flex flex-col hover:shadow-md transition-shadow group">
-                    <div class="absolute inset-0 z-0 cursor-pointer" onclick="abrirModalDetalhes('Combinado Sushi', 125.00, '10 Sashimis variados, 10 Urimakis filadélfia e 10 uramakis', './assets/images/sushi_spicy.png', 's_1')">
-                    </div>
-                    <!-- Botão Favorito -->
-                    <button class="absolute top-3 right-3 text-gray-300 hover:text-primary transition-colors z-10">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
-                            stroke="currentColor" class="w-5 h-5">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
-                        </svg>
-                    </button>
-
-                    <!-- imagem -->
-                    <img src="./assets/images/sushi_spicy.png" alt="Combinado Sushi" class="w-full h-24 object-contain mb-2 mt-2 transition-transform duration-300 drop-shadow-sm group-hover:scale-105 pointer-events-none relative z-10">
-                    <!-- nome e preço -->
-                    <div class="text-left w-full mt-auto relative z-10 pointer-events-none">
-                        <h4 class="font-bold text-dark text-sm leading-tight">Combinado Sushi</h4>
-                        <p class="text-primary font-black text-lg leading-none mt-1">R$ 125,00</p>
-                    </div>
-                    <!-- botao adicionar -->
-                    <button onclick="adicionarItem('s_1', 'Combinado Sushi', 125.00)" class="w-full bg-primary text-white py-2 rounded-xl text-xs font-bold mt-3 shadow-md hover:bg-red-700 active:scale-95 transition-all z-10 relative">
-                        Adicionar ao carrinho
-                    </button>
-                </div>
-
-                <div class="bg-white rounded-[20px] p-3 shadow-sm border border-gray-100 relative flex flex-col hover:shadow-md transition-shadow group">
-
-                    <!-- NOVO: Div invisível que cobre o card inteiro.
-                         Ao clicar em qualquer lugar (exceto botões),
-                         chama a função abrirModalDetalhes() -->
-                    <div class="absolute inset-0 z-0 cursor-pointer"
-                        onclick="abrirModalDetalhes('Sushi de Salmão', 95.9, 'Sushi de salmão premium, 10 unidades. Acompanha wasabi e shoyu.', './assets/images/sushi_salmao.png', 's_2')">
-                    </div>
-
-                    <!-- Botão Favorito -->
-                    <button class="absolute top-3 right-3 text-gray-300 hover:text-primary transition-colors z-10">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
-                            stroke="currentColor" class="w-5 h-5">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
-                        </svg>
-                    </button>
-
-                    <!-- Imagem -->
-                    <img src="./assets/images/sushi_salmao.png" alt="Sushi de Salmão"
-                        class="w-full h-24 object-contain mb-2 mt-2 transition-transform duration-300 drop-shadow-sm group-hover:scale-105 pointer-events-none relative z-10">
-
-                    <div class="text-left w-full mt-auto relative z-10 pointer-events-none">
-                        <h4 class="font-bold text-dark text-sm leading-tight">Sushi de Salmão</h4>
-                        <p class="text-primary font-black text-lg leading-none mt-1">R$ 95,90</p>
-                    </div>
-
-                    <!-- Botao Adicionar -->
-                    <button onclick="adicionarItem('s_2', 'Sushi de Salmão', 95.9)"
-                        class="w-full bg-primary text-white py-2 rounded-xl text-xs font-bold mt-3 
-                        shadow-md hover:bg-red-700 active:scale-95 transition-all z-10 relative">
-                        Adicionar ao Carrinho
-                    </button>
-                </div>
-
-                <div class="bg-white rounded-[20px] p-3 shadow-sm border border-gray-100 relative flex flex-col hover:shadow-md transition-shadow group">
-
-                    <!-- NOVO: Div invisível que cobre o card inteiro.
-                         Ao clicar em qualquer lugar (exceto botões),
-                         chama a função abrirModalDetalhes() -->
-                    <div class="absolute inset-0 z-0 cursor-pointer"
-                        onclick="abrirModalDetalhes('Sushi de Atum', 85.00, 'Sushi de atum premium, 10 unidades. Acompanha wasabi e shoyu.', './assets/images/sushi_atum.png', 's_3')">
-                    </div>
-
-                    <!-- Botão Favorito -->
-                    <button class="absolute top-3 right-3 text-gray-300 hover:text-primary transition-colors z-10">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
-                            stroke="currentColor" class="w-5 h-5">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
-                        </svg>
-                    </button>
-
-                    <!-- Imagem -->
-                    <img src="./assets/images/sushi_atum.png" alt="Sushi de Atum"
-                        class="w-full h-24 object-contain mb-2 mt-2 transition-transform duration-300 drop-shadow-sm group-hover:scale-105 pointer-events-none relative z-10">
-
-                    <div class="text-left w-full mt-auto relative z-10 pointer-events-none">
-                        <h4 class="font-bold text-dark text-sm leading-tight">Sushi de Atum</h4>
-                        <p class="text-primary font-black text-lg leading-none mt-1">R$ 85,00</p>
-                    </div>
-
-                    <!-- Botao Adicionar -->
-                    <button onclick="adicionarItem('s_3', 'Sushi de Atum', 85.00)"
-                        class="w-full bg-primary text-white py-2 rounded-xl text-xs font-bold mt-3 
-                        shadow-md hover:bg-red-700 active:scale-95 transition-all z-10 relative">
-                        Adicionar ao Carrinho
-                    </button>
-                </div>
-
-                <div class="bg-white rounded-[20px] p-3 shadow-sm border border-gray-100 relative flex flex-col hover:shadow-md transition-shadow group">
-
-                    <!-- NOVO: Div invisível que cobre o card inteiro.
-                         Ao clicar em qualquer lugar (exceto botões),
-                         chama a função abrirModalDetalhes() -->
-                    <div class="absolute inset-0 z-0 cursor-pointer"
-                        onclick="abrirModalDetalhes('Sushi de Salmão', 90.00, 'Sushi de camarão premium, 10 unidades. Acompanha wasabi e shoyu.', './assets/images/sushi_camarao.png', 's_4')">
-                    </div>
-
-                    <!-- Botão Favorito -->
-                    <button class="absolute top-3 right-3 text-gray-300 hover:text-primary transition-colors z-10">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
-                            stroke="currentColor" class="w-5 h-5">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
-                        </svg>
-                    </button>
-
-                    <!-- Imagem -->
-                    <img src="./assets/images/sushi_camarao.png" alt="Sushi de camarão"
-                        class="w-full h-24 object-contain mb-2 mt-2 transition-transform duration-300 drop-shadow-sm group-hover:scale-105 pointer-events-none relative z-10">
-
-                    <div class="text-left w-full mt-auto relative z-10 pointer-events-none">
-                        <h4 class="font-bold text-dark text-sm leading-tight">Sushi de Camarão</h4>
-                        <p class="text-primary font-black text-lg leading-none mt-1">R$ 90,00</p>
-                    </div>
-
-                    <!-- Botao Adicionar -->
-                    <button onclick="adicionarItem('s_4', 'Sushi de Camarão', 90.00)"
-                        class="w-full bg-primary text-white py-2 rounded-xl text-xs font-bold mt-3 
-                        shadow-md hover:bg-red-700 active:scale-95 transition-all z-10 relative">
-                        Adicionar ao Carrinho
-                    </button>
-                </div>
+        <!-- produto inicio-->
+         <div id="produtos-container" class="mt-8">
+            <div id="categoria-titulo" class="text-left text-dark font-extrabold text-[22px] mb-4">
+                Iniciando...
             </div>
-        </div>
-
-        <div id="cat-bebidas" class="categoria-conteudo">
-            <div class="text-left text-dark font-extrabold text-[22px] mt-8 mb-4">Bebidas</div>
-            <div class="grid-cols-2 gap-4">
-                <div class="bg-white rounded-[20px] p-3 shadow-sm border border-gray-100 relative flex flex-col hover:shadow-md transition-shadow group">
-                    <div class="absolute inset-0 z-0 cursor-pointer" onclick="abrirModalDetalhes('Lata de Refrigerante', 10.00, 'Refrigerante Coca-Cola 350ml', './assets/images/coca_cola.png', 's_5')">
-                    </div>
-                    <!-- Botão Favorito -->
-                    <button class="absolute top-3 right-3 text-gray-300 hover:text-primary transition-colors z-10">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
-                            stroke="currentColor" class="w-5 h-5">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
-                        </svg>
-                    </button>
-
-                    <!-- imagem -->
-                    <img src="./assets/images/coca_cola.png" alt="Coca Cola" class="w-full h-24 object-contain mb-2 mt-2 transition-transform duration-300 drop-shadow-sm group-hover:scale-105 pointer-events-none relative z-10">
-                    <!-- nome e preço -->
-                    <div class="text-left w-full mt-auto relative z-10 pointer-events-none">
-                        <h4 class="font-bold text-dark text-sm leading-tight">Lata de Refrigerante</h4>
-                        <p class="text-primary font-black text-lg leading-none mt-1">R$ 10,00</p>
-                    </div>
-                    <!-- botao adicionar -->
-                    <button onclick="adicionarItem('s_5', 'Lata de Refrigerante', 10.00)" class="w-full bg-primary text-white py-2 rounded-xl text-xs font-bold mt-3 shadow-md hover:bg-red-700 active:scale-95 transition-all z-10 relative">
-                        Adicionar ao carrinho
-                    </button>
-                </div>
-
-                <div class="bg-white rounded-[20px] p-3 shadow-sm border border-gray-100 relative flex flex-col hover:shadow-md transition-shadow group">
-
-                    <!-- NOVO: Div invisível que cobre o card inteiro.
-                         Ao clicar em qualquer lugar (exceto botões),
-                         chama a função abrirModalDetalhes() -->
-                    <div class="absolute inset-0 z-0 cursor-pointer"
-                        onclick="abrirModalDetalhes('Água Mineral', 7.00, 'Garrafa de água mineral 500ml', './assets/images/agua_mineral.png', 's_6')">
-                    </div>
-
-                    <!-- Botão Favorito -->
-                    <button class="absolute top-3 right-3 text-gray-300 hover:text-primary transition-colors z-10">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
-                            stroke="currentColor" class="w-5 h-5">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
-                        </svg>
-                    </button>
-
-                    <!-- Imagem -->
-                    <img src="./assets/images/agua_mineral.png" alt="água mineral"
-                        class="w-full h-24 object-contain mb-2 mt-2 transition-transform duration-300 drop-shadow-sm group-hover:scale-105 pointer-events-none relative z-10">
-
-                    <div class="text-left w-full mt-auto relative z-10 pointer-events-none">
-                        <h4 class="font-bold text-dark text-sm leading-tight">Água Mineral</h4>
-                        <p class="text-primary font-black text-lg leading-none mt-1">R$ 7,00</p>
-                    </div>
-
-                    <!-- Botao Adicionar -->
-                    <button onclick="adicionarItem('s_6', 'Água Mineral', 7.00)"
-                        class="w-full bg-primary text-white py-2 rounded-xl text-xs font-bold mt-3 
-                        shadow-md hover:bg-red-700 active:scale-95 transition-all z-10 relative">
-                        Adicionar ao Carrinho
-                    </button>
-                </div>
-
-                <div class="bg-white rounded-[20px] p-3 shadow-sm border border-gray-100 relative flex flex-col hover:shadow-md transition-shadow group">
-
-                    <!-- NOVO: Div invisível que cobre o card inteiro.
-                         Ao clicar em qualquer lugar (exceto botões),
-                         chama a função abrirModalDetalhes() -->
-                    <div class="absolute inset-0 z-0 cursor-pointer"
-                        onclick="abrirModalDetalhes('Garrafa de Cerveja', 15.00, 'Garrafa Heineken 330ml', './assets/images/heineken.png', 's_7')">
-                    </div>
-
-                    <!-- Botão Favorito -->
-                    <button class="absolute top-3 right-3 text-gray-300 hover:text-primary transition-colors z-10">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
-                            stroke="currentColor" class="w-5 h-5">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
-                        </svg>
-                    </button>
-
-                    <!-- Imagem -->
-                    <img src="./assets/images/heineken.png" alt="Garrafa heineken"
-                        class="w-full h-24 object-contain mb-2 mt-2 transition-transform duration-300 drop-shadow-sm group-hover:scale-105 pointer-events-none relative z-10">
-
-                    <div class="text-left w-full mt-auto relative z-10 pointer-events-none">
-                        <h4 class="font-bold text-dark text-sm leading-tight">Garrafa de Cerveja</h4>
-                        <p class="text-primary font-black text-lg leading-none mt-1">R$ 15,00</p>
-                    </div>
-
-                    <!-- Botao Adicionar -->
-                    <button onclick="adicionarItem('s_7', 'Garrafa de Cerveja', 15.00)"
-                        class="w-full bg-primary text-white py-2 rounded-xl text-xs font-bold mt-3 
-                        shadow-md hover:bg-red-700 active:scale-95 transition-all z-10 relative">
-                        Adicionar ao Carrinho
-                    </button>
-                </div>
+            <div id="lista-produtos" class="grid grid-cols-2 gap-4">
             </div>
-        </div>
+         </div>
+        <!-- produtos fim -->
+        </section>
 
-        <div id="cat-sobremesas" class="categoria-conteudo">
-            <div class="text-left text-dark font-extrabold text-[22px] mt-8 mb-4">Sobremesas</div>
-            <div class="grid-cols-2 gap-4">
-                <div class="bg-white rounded-[20px] p-3 shadow-sm border border-gray-100 relative flex flex-col hover:shadow-md transition-shadow group">
-                    <div class="absolute inset-0 z-0 cursor-pointer" onclick="abrirModalDetalhes('Combinado Hot Roll de Banana', 30.00, '10 peças de Hot roll de banana recheado.', './assets/images/hotroll_banana.png', 's_8')">
-                    </div>
-                    <!-- Botão Favorito -->
-                    <button class="absolute top-3 right-3 text-gray-300 hover:text-primary transition-colors z-10">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
-                            stroke="currentColor" class="w-5 h-5">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
-                        </svg>
-                    </button>
+        <script>
+            const API_URL = 'https://aula07-backend-vercel.vercel.app/api';
+            const navCategorias = document.getElementById('nav-categorias');
+            const listaProdutos = document.getElementById('lista-produtos');
+            const categoriaTitulo = document.getElementById('categoria-titulo');
+            let categoriasData = [];
+            let categoriasAtivaId = null;
 
-                    <!-- imagem -->
-                    <img src="./assets/images/hotroll_banana.png" alt="Combinado hot roll banana" class="w-full h-24 object-contain mb-2 mt-2 transition-transform duration-300 drop-shadow-sm group-hover:scale-105 pointer-events-none relative z-10">
-                    <!-- nome e preço -->
-                    <div class="text-left w-full mt-auto relative z-10 pointer-events-none">
-                        <h4 class="font-bold text-dark text-sm leading-tight">Combinado Hot roll de banana</h4>
-                        <p class="text-primary font-black text-lg leading-none mt-1">R$ 60,00</p>
-                    </div>
-                    <!-- botao adicionar -->
-                    <button onclick="adicionarItem('s_8', 'Combinado Hot roll de banana', 30.00)" class="w-full bg-primary text-white py-2 rounded-xl text-xs font-bold mt-3 shadow-md hover:bg-red-700 active:scale-95 transition-all z-10 relative">
-                        Adicionar ao carrinho
-                    </button>
-                </div>
+            //função para buscar categorias (FETCH)
+            async function carregarCategorias() {
+                try {
+                    const response = await fetch(`${API_URL}/categorias`);
+                    categoriasData = await response.json();
+                    renderizarBotoesCategorias();
+                    //seleciona a 1º categoria automatico
+                    if (categoriasData.length > 0) {
+                        selecionarCategorias(categoriasData[0].id, categoriasData[0].nome);
+                    }
+                }catch (error) {
+                    console.error('Erro ao carregar categorias:', error);
+                    navCategorias.innerHTML = '<p class="text-red-500">Erro ao carregar menu.</p>';
+                }  
+            }
 
-                <div class="bg-white rounded-[20px] p-3 shadow-sm border border-gray-100 relative flex flex-col hover:shadow-md transition-shadow group">
+            //função para renderizar borões de menu
+            function renderizarBotoesCategorias(){
+                navCategorias.innerHTML ='';
+                categoriasData.forEach(cat => {
+                    const btn = document.createElement('button');
+                    btn.className = `snap-start px-4 py-4 py-1 rounded-full font-bold text-sm transition-all duration-150 cursor-pointer flex-shrink-0 btn-cat`;
+                    btn.innerText = cat.nome;
+                    btn.onclick = () => selecionarCategorias(cat.id, cat.nome);
+                    btn.dataset.id = cat.id;
+                    navCategorias.id = cat.id;
+                });
+            }
 
-                    <!-- NOVO: Div invisível que cobre o card inteiro.
-                         Ao clicar em qualquer lugar (exceto botões),
-                         chama a função abrirModalDetalhes() -->
-                    <div class="absolute inset-0 z-0 cursor-pointer"
-                        onclick="abrirModalDetalhes('Sorvete de Matcha', 20.00, 'Pote de 50ml de Sorvete de Matcha.', './assets/images/sorvete_matcha.png', 's_9')">
-                    </div>
+            //funcao para mudar a categoria
+            async function selecionarCategorias(id, nome) {
+                categoriaAtivaId = id;
+                categoriaTitulo.innerText = nome;
+                const botoes = document.querySelectorAll('.btn-cat');
+                botoes.forEach(btn => {
+                    if (parseInt(btn.dataset.id) === id) {
+                        btn.classList.add('bg-primary', 'text-white');
+                        btn.classList.remove('bg-[#ebebeb]', 'text-dark');
+                    }else{
+                        btn.classList.remove('bg-primary', 'text-white');
+                        btn.classList.add('bg-[#ebebeb]', 'text-dark');
+                    }
+                });
+                carregarProdutos(id);
+            }
+        </script>
 
-                    <!-- Botão Favorito -->
-                    <button class="absolute top-3 right-3 text-gray-300 hover:text-primary transition-colors z-10">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
-                            stroke="currentColor" class="w-5 h-5">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
-                        </svg>
-                    </button>
-
-                    <!-- Imagem -->
-                    <img src="./assets/images/sorvete_matcha.png" alt="Sorvete de Matcha"
-                        class="w-full h-24 object-contain mb-2 mt-2 transition-transform duration-300 drop-shadow-sm group-hover:scale-105 pointer-events-none relative z-10">
-
-                    <div class="text-left w-full mt-auto relative z-10 pointer-events-none">
-                        <h4 class="font-bold text-dark text-sm leading-tight">Sorvete de Matcha</h4>
-                        <p class="text-primary font-black text-lg leading-none mt-1">R$ 20,00</p>
-                    </div>
-
-                    <!-- Botao Adicionar -->
-                    <button onclick="adicionarItem('s_9', 'Sorvete de Matcha', 20.00)"
-                        class="w-full bg-primary text-white py-2 rounded-xl text-xs font-bold mt-3 
-                        shadow-md hover:bg-red-700 active:scale-95 transition-all z-10 relative">
-                        Adicionar ao Carrinho
-                    </button>
-                </div>
-
-                <div class="bg-white rounded-[20px] p-3 shadow-sm border border-gray-100 relative flex flex-col hover:shadow-md transition-shadow group">
-
-                    <!-- NOVO: Div invisível que cobre o card inteiro.
-                         Ao clicar em qualquer lugar (exceto botões),
-                         chama a função abrirModalDetalhes() -->
-                    <div class="absolute inset-0 z-0 cursor-pointer"
-                        onclick="abrirModalDetalhes('Mochi de Morango', 15.00, 'Sobremesa de Morango com massa de arroz coreana.', './assets/images/mochi_morango.png', 's_10')">
-                    </div>
-
-                    <!-- Botão Favorito -->
-                    <button class="absolute top-3 right-3 text-gray-300 hover:text-primary transition-colors z-10">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
-                            stroke="currentColor" class="w-5 h-5">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
-                        </svg>
-                    </button>
-
-                    <!-- Imagem -->
-                    <img src="./assets/images/mochi_morango.png" alt="Mochi de Morango"
-                        class="w-full h-24 object-contain mb-2 mt-2 transition-transform duration-300 drop-shadow-sm group-hover:scale-105 pointer-events-none relative z-10">
-
-                    <div class="text-left w-full mt-auto relative z-10 pointer-events-none">
-                        <h4 class="font-bold text-dark text-sm leading-tight">Mochi de Morango</h4>
-                        <p class="text-primary font-black text-lg leading-none mt-1">R$ 15,00</p>
-                    </div>
-
-                    <!-- Botao Adicionar -->
-                    <button onclick="adicionarItem('s_10', 'Mochi de Morango', 15.00)"
-                        class="w-full bg-primary text-white py-2 rounded-xl text-xs font-bold mt-3 
-                        shadow-md hover:bg-red-700 active:scale-95 transition-all z-10 relative">
-                        Adicionar ao Carrinho
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <div id="cat-temakis" class="categoria-conteudo">
-            <div class="text-left text-dark font-extrabold text-[22px] mt-8 mb-4">Temakis</div>
-            <div class="grid-cols-2 gap-4">
-                <div class="bg-white rounded-[20px] p-3 shadow-sm border border-gray-100 relative flex flex-col hover:shadow-md transition-shadow group">
-                    <div class="absolute inset-0 z-0 cursor-pointer" onclick="abrirModalDetalhes('Temaki com camarão', 45.50, '10 peças de Hot roll de banana recheado.', './assets/images/temaki_camarao.png', 's_11')">
-                    </div>
-                    <!-- Botão Favorito -->
-                    <button class="absolute top-3 right-3 text-gray-300 hover:text-primary transition-colors z-10">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
-                            stroke="currentColor" class="w-5 h-5">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
-                        </svg>
-                    </button>
-
-                    <!-- imagem -->
-                    <img src="./assets/images/temaki_camarao.png" alt="Temaki camarão" class="w-full h-24 object-contain mb-2 mt-2 transition-transform duration-300 drop-shadow-sm group-hover:scale-105 pointer-events-none relative z-10">
-                    <!-- nome e preço -->
-                    <div class="text-left w-full mt-auto relative z-10 pointer-events-none">
-                        <h4 class="font-bold text-dark text-sm leading-tight">Temaki com camarão</h4>
-                        <p class="text-primary font-black text-lg leading-none mt-1">R$ 45,50</p>
-                    </div>
-                    <!-- botao adicionar -->
-                    <button onclick="adicionarItem('s_11', 'Temaki com camarão', 45.50)" class="w-full bg-primary text-white py-2 rounded-xl text-xs font-bold mt-3 shadow-md hover:bg-red-700 active:scale-95 transition-all z-10 relative">
-                        Adicionar ao carrinho
-                    </button>
-                </div>
-
-                <div class="bg-white rounded-[20px] p-3 shadow-sm border border-gray-100 relative flex flex-col hover:shadow-md transition-shadow group">
-
-                    <!-- NOVO: Div invisível que cobre o card inteiro.
-                         Ao clicar em qualquer lugar (exceto botões),
-                         chama a função abrirModalDetalhes() -->
-                    <div class="absolute inset-0 z-0 cursor-pointer"
-                        onclick="abrirModalDetalhes('Temaki com salmão', 41.50, 'Temaki feito com arroz, alga e salmão', './assets/images/temaki-salmao.png', 's_12')">
-                    </div>
-
-                    <!-- Botão Favorito -->
-                    <button class="absolute top-3 right-3 text-gray-300 hover:text-primary transition-colors z-10">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
-                            stroke="currentColor" class="w-5 h-5">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
-                        </svg>
-                    </button>
-
-                    <!-- Imagem -->
-                    <img src="./assets/images/temaki-salmao.png" alt="Temaki com salmão"
-                        class="w-full h-24 object-contain mb-2 mt-2 transition-transform duration-300 drop-shadow-sm group-hover:scale-105 pointer-events-none relative z-10">
-
-                    <div class="text-left w-full mt-auto relative z-10 pointer-events-none">
-                        <h4 class="font-bold text-dark text-sm leading-tight">Temaki com salmão</h4>
-                        <p class="text-primary font-black text-lg leading-none mt-1">R$ 41,50</p>
-                    </div>
-
-                    <!-- Botao Adicionar -->
-                    <button onclick="adicionarItem('s_12', 'Temaki com salmão', 41.50)"
-                        class="w-full bg-primary text-white py-2 rounded-xl text-xs font-bold mt-3 
-                        shadow-md hover:bg-red-700 active:scale-95 transition-all z-10 relative">
-                        Adicionar ao Carrinho
-                    </button>
-                </div>
-
-                <div class="bg-white rounded-[20px] p-3 shadow-sm border border-gray-100 relative flex flex-col hover:shadow-md transition-shadow group">
-                </div>
-            </div>
-        </div>
-    </section>
 
     <!-- ================= FOOTER ================= -->
    <footer class="mt-24 text-center py-12 px-4 text-[0.875rem] text-white bg-[#333333]">
