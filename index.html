@@ -90,93 +90,110 @@
     </section>
 
     <!-- ================= CARDÁPIO ================= -->
-    <section id="cardapio" class="max-w-[90vw] mx-auto mt-[5vh] p-8">
+    <section id="cardapio" class="border-t border-dashed border-gray-400 w-full max-w-[700px] mx-auto mt-24 pt-12 pb-4 px-4 text-center">
 
         <h2 class="text-3xl font-bold text-center mb-8">
             Cardápio
         </h2>
 
         <!-- menu categoria inicio-->
-        <nav id="nav-categorias" class="overflow-x-auto whitespace-nowrap snap-x flex gap-2 mt-6 pb-1">
-            <div class="animate-pulse flex gap-2">
-                <div class="h-8 w-20 bg gray rounded-full"></div>
-                <div class="h-8 w-20 bg gray rounded-full"></div>
-                <div class="h-8 w-20 bg gray rounded-full"></div>
-            </div>
-        </nav>
-        <!--menu categoria fim-->
-        <!-- produto inicio-->
-         <div id="produtos-container" class="mt-8">
-            <div id="categoria-titulo" class="text-left text-dark font-extrabold text-[22px] mb-4">
-                Iniciando...
-            </div>
-            <div id="lista-produtos" class="grid grid-cols-2 gap-4">
-            </div>
-         </div>
-        <!-- produtos fim -->
-        </section>
+            <nav id="nav-categorias" class="overflow-x-auto whitespace-nowrap snap-x flex gap-2 mt-6 pb-1">
+                <div class="animate-pulse flex gap-2">
+                    <div class="h-8 w-20 bg-gray rounded-full"></div>
+                    <div class="h-8 w-20 bg-gray rounded-full"></div>
+                    <div class="h-8 w-20 bg-gray rounded-full"></div>
+                </div>
 
-        <script>
-            const API_URL = 'https://aula07-backend-vercel.vercel.app/api';
-            const navCategorias = document.getElementById('nav-categorias');
-            const listaProdutos = document.getElementById('lista-produtos');
-            const categoriaTitulo = document.getElementById('categoria-titulo');
-            let categoriasData = [];
-            let categoriasAtivaId = null;
+            </nav>
+        <!--menu categoria fim-->       
+        <!--produto inicio-->
+            <div id="produtos-container" class="mt-8">
+                <div id="categorias-titulo" class="text-left text-dark font-extrabold text-[22px] mb-4">
+                    Iniciando...
+                </div>
+                <div id="lista-produtos" class="grid grid-cols-2 gap-4">
 
-            //função para buscar categorias (FETCH)
-            async function carregarCategorias() {
-                try {
-                    const response = await fetch(`${API_URL}/categorias`);
-                    categoriasData = await response.json();
-                    renderizarBotoesCategorias();
-                    //seleciona a 1º categoria automatico
-                    if (categoriasData.length > 0) {
-                        selecionarCategorias(categoriasData[0].id, categoriasData[0].nome);
-                    }
-                }catch (error) {
-                    console.error('Erro ao carregar categorias:', error);
-                    navCategorias.innerHTML = '<p class="text-red-500">Erro ao carregar menu.</p>';
-                }  
+                </div>
+            </div>
+        <!--produto fim-->
+
+    </section>
+
+    <script>
+        const API_URL = 'https://aula07-backend-vercel.vercel.app/api';
+        const navCategorias = document.getElementById('nav-categorias');
+        const listaProdutos = document.getElementById('lista-produtos');
+        const categoriaTitulo = document.getElementById('categorias-titulo');
+        let categoriasData = [];
+        let categoriasAtivaId = null;
+
+        async function carregarCategorias() {
+            try {   
+                const response = await fetch(`${API_URL}/categorias`);
+                categoriasData = await response.json();
+                renderizarBotoesCategorias();
+                if (categoriasData.length > 0) {
+                    selecionarCategoria(categoriasData[0].id, categoriasData[0].nome);
+                }
+            }catch (error) {
+                console.error('Error ao carregar as categorias:', error);
+                navCategorias.innerHTML = '<p class="text-red-500">Erro ao carregar menu.</p>'
             }
+        }
 
-            //função para renderizar borões de menu
-            function renderizarBotoesCategorias(){
-                navCategorias.innerHTML ='';
-                categoriasData.forEach(cat => {
-                    const btn = document.createElement('button');
+        function renderizarBotoesCategorias(){
+            navCategorias.innerHTML = '';
+            categoriasData.forEach(cat => {
+                const btn = document.createElement('button')
                     btn.className = `snap-start px-4 py-4 py-1 rounded-full font-bold text-sm transition-all duration-150 cursor-pointer flex-shrink-0 btn-cat`;
                     btn.innerText = cat.nome;
-                    btn.onclick = () => selecionarCategorias(cat.id, cat.nome);
+                    btn.onclick = () => selecionarCategoria(cat.id, cat.nome);
                     btn.dataset.id = cat.id;
-                    navCategorias.id = cat.id;
-                });
-            }
+                    navCategorias.appendChild(btn);
+            });
+        }
 
-            //funcao para mudar a categoria
-            async function selecionarCategorias(id, nome) {
-                categoriaAtivaId = id;
-                categoriaTitulo.innerText = nome;
-                const botoes = document.querySelectorAll('.btn-cat');
-                botoes.forEach(btn => {
-                    if (parseInt(btn.dataset.id) === id) {
-                        btn.classList.add('bg-primary', 'text-white');
-                        btn.classList.remove('bg-[#ebebeb]', 'text-dark');
-                    }else{
-                        btn.classList.remove('bg-primary', 'text-white');
-                        btn.classList.add('bg-[#ebebeb]', 'text-dark');
-                    }
-                });
-                carregarProdutos(id);
-            }
-        </script>
 
+        async function selecionarCategoria(id, nome) {
+            categoriasAtivaId = id;
+            categoriaTitulo.innerHTML = nome;
+            const botoes = document.querySelectorAll('.btn-cat');
+            botoes.forEach(btn => {
+                if (parseInt(btn.dataset.id) === id) {
+                    btn.classList.add('bg-primary', 'text-white')
+                    btn.classList.remove('bg-[#ebebeb]', 'text-dark')
+                } else {
+                    btn.classList.remove('bg-primary', 'text-white');
+                    btn.classList.add('bg-[#ebebeb]', 'text-dark');
+                }
+            });
+            carregarProdutos(id);
+        }
+
+        async function carregarProdutos(categoriaId) {
+            listaProdutos.innerHTML = `
+            <div class="col-span-2 py-10 flex justify-center">
+                <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+            </div>
+            `;
+            try{
+                const response = await fetch(`${API_URL}/produtos?categoriaId=${categoriaId}`);
+                const produtos = await response.json();
+                renderizarProdutos(produtos);
+            }catch (error) {
+                console.error('Erro ao carregar produtos:', error);
+                listaProdutos.innerHTML = '<p class="col-span-2 text-red-500">Erro ao carregar produtos.</p>';
+            }
+        }
+
+        carregarCategorias();
+    </script>
 
     <!-- ================= FOOTER ================= -->
    <footer class="mt-24 text-center py-12 px-4 text-[0.875rem] text-white bg-[#333333]">
         <h3 class="text-lg font-bold mb-2">Haruy Sushi</h3>
         <p>📍 Rua Prof. Toledo, 500, centro - Sorocaba</p>
-        <p>📞 Whatsapp: (15) 99145-6699</p>
+        <p>📞 Whatsapp: (15) 99833-5768</p>
         <p>🕛 Aberto todos os dias das 14h às 23h</p>
     </footer>
 
@@ -268,7 +285,9 @@
                 </button>
             </div>
         </div>
+
     </div>
+
 
     <!-- script menu hamburguer -->
     <script>
@@ -284,7 +303,6 @@
             mobileMenu.style.right = "-100%";
         });
     </script>
-
 
     <!-- script botao categoria -->
     <script>
@@ -382,11 +400,6 @@
             }, 300);
         }
 
-        //fechar modal na area escura fora do conteudo
-        modalDetalhes.addEventListener('click', function(e) {
-            if (e.target === modalDetalhes) fecharModalDetalhes();
-        });
-
         //carrinho
         //array para armazenar itens do carrinho
         let carrinho = [];
@@ -399,7 +412,7 @@
         const itensContainer = document.getElementById('carrinho-itens-container');
         const modalTotalSpan = document.getElementById('modal-carrinho-total');
         //verifica se o carrinho ja tem itens salvos no localstorage
-        function inicializarCarrinho() {
+        function inicilarCarrinho() {
             const carrinhoSalvo = localStorge.getItem('haruy_carrinho');
             if (carrinhoSalvo) {
                 //se existir algo salvo converte de volta para array e atualiza o carrinho
@@ -442,7 +455,6 @@
                 modal.classList.add('opacity-0', 'pointer-events-none');
             }, 300);
         }
-        
 
         //controles dentro do modal do carrinho (aumentar, diminuir, remover itens)
         //controle de (+ / -) quantidade
@@ -492,54 +504,54 @@
             //renderiza a lista de itens dentro do modal
             renderizarItensModal();
         }
-
-        //funcao para redenrizar os itens do crrinho dentro do modal
-        function renderizarItensModal(){
+    
+        //função para renderizar os itens do carrinho dentro do modal
+        function renderizarItensModal() {
             if (!itensContainer) return;
             itensContainer.innerHTML = '';
-            //para cada item no array, cria um HTML
+            // para cada item no array, cria um HTML
             carrinho.forEach(item => {
                 const subTotal = (item.preco * item.quantidade).toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'});
                 const precoUnit = item.preco.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'});
                 const divItem = document.createElement('div');
-                divItem.className = "flex justify-between items-center border-b pb-4 mt-2";
+                divItem.className = 'flex justify-between items-center border-b p-4 mt-2';
 
-                divItem.innerHTML = ` 
-                    <div class="flex-1">
-                        <h4 class="font-bold text-lg text-dark">${item.nome}</h4>
-                        <p class="text-sm text-muted">${precoUnit}</p>
-                        <p class="text-bold text-primary mt-1">${subTotal}</p>
-                    <div>
-                    <div class="flex items-center gap-3 bg-gray-100 p-2 rounded-xl">
-                        <button onclick="diminuirQuantidade('${item.id}')" class="w-8 h-8 flex justify-center items-center bg-white rounded-lg font-bold text-xl shadow-sm hover:text-primary active: scale-95 transition-all">-</button>
-                        <span class="font-bold text-lg w-4 text-center">${item.quantidade}</span>
-                        <button onclick="aumentarQuantidade('${item.id}')" class="w-8 h-8 flex justify-center items-center bg-white rounded-lg font-bold text-xl shadow-sm hover:text-primary active:scale-95 transition-all">+</button>
+                divItem.innerHTML = `
+                   <div class="flex-1">
+                    <h4 class = "font-bold text-lg text-dark">${item.nome}</h4>
+                    <p class="text-sm text-muted">${precoUnit} </p>
+                    <p class = "text-bold text-primary mt-1">${subTotal}</p>
                     </div>
+
+                    <div class="flex items-center gap-3 bg-gray-100 p-2 rounded-xl">
+                        <button onclick="diminuirQuantidade('${item.id}')" class="w-8 h-8 flex justify-center items-center bg-white rounded-lg font-bold text-xl shadow-sm hover:text-primary active:scale-95 transition-all">-</button>
+                        <span class="font-bold text-lg w-4 text-center">${item.quantidade}</span>
+                        <button onclick="aumentarQuantidade('${item.id}')" class="w-8 h-8 flex justify-center items-center bg-white rounded-lg font-bold text-xl shadow-sm hover:text-primary active:scale-95" transition-all">+</button>
+                    </div>
+
                 `;
                 itensContainer.appendChild(divItem);
             })
         }
 
-        //fechar peido (geolocalização api - gps)
+        //fechar pedido (gps - api)
         function fecharPedido() {
             if (carrinho.length === 0) {
-                const btnPedido = document.getElementById('btn-fechar-pedido)');
+                const btnPedido = document.getElementById('btn-fechar-pedido');
                 if (!btnPedido) return;
 
                 const btnOriginalText = btnPedido.innerText;
-                btnPedido.innerText = "Buscando localização...";
+                btnPedido.innerText = 'Buscando localização...';
 
                 navigator.geolocation.getCurrentPosition(
                     //callback de sucesso
                     (posicao) => {
                         const lat = posicao.coords.latitude;
-                        const lng = posicao.coords.longitude;
+                        const lon = posicao.coords.longitude;
 
                         btnPedido.innerText = btnOriginalText;
 
-                        alert(`Pedido Fechado com Sucesso! 
-                        \nSua Localização: ${lat.toFixed(4)}, ${lng.toFixed(4)} 
-                        \nOs dados do carrinho serão limpos`);
+                        alert(`Pedido fechado! \nSua localização: ${lat.toFixed(4)}, ${lon.toFixed(4)}\nOs dados do carrinho serão limpos`);
 
                         carrinho = [];
                         fecharModalCarrinho();
@@ -549,14 +561,14 @@
                     (erro) => {
                         btnPedido.innerText = btnOriginalText;
                         console.error(erro);
-                        alert("Não foi possível obter sua localização.");
+                        alert('Não foi possível obter sua localização.');
                         carrinho = [];
                         fecharModalCarrinho();
                         atualizarCarrinho();
                     }
                 );
             }else{
-                alert(`Pedido Fechado com Sucesso! \n(navegador sem suporte GPS)`);
+                alert(`Pedido fechado com sucesso! \n(navegador sem suporte GPS)`);
                 carrinho = [];
                 fecharModalCarrinho();
                 atualizarCarrinho();
@@ -565,5 +577,7 @@
         inicializarCarrinho();
 
     </script>
+
 </body>
+
 </html>
