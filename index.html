@@ -90,7 +90,7 @@
     </section>
 
     <!-- ================= CARDÁPIO ================= -->
-    <section id="cardapio" class="border-t border-dashed border-gray-400 w-full max-w-[700px] mx-auto mt-24 pt-12 pb-4 px-4 text-center">
+    <section id="cardapio" class="max-w-[90vw] mx-auto mt-[5vh] p-8">
 
         <h2 class="text-3xl font-bold text-center mb-8">
             Cardápio
@@ -109,7 +109,7 @@
         <!--produto inicio-->
             <div id="produtos-container" class="mt-8">
                 <div id="categorias-titulo" class="text-left text-dark font-extrabold text-[22px] mb-4">
-                    Iniciando...
+                    iniciando...
                 </div>
                 <div id="lista-produtos" class="grid grid-cols-2 gap-4">
 
@@ -171,19 +171,48 @@
         }
 
         async function carregarProdutos(categoriaId) {
-            listaProdutos.innerHTML = `
-            <div class="col-span-2 py-10 flex justify-center">
-                <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
-            </div>
-            `;
-            try{
-                const response = await fetch(`${API_URL}/produtos?categoriaId=${categoriaId}`);
-                const produtos = await response.json();
-                renderizarProdutos(produtos);
-            }catch (error) {
-                console.error('Erro ao carregar produtos:', error);
-                listaProdutos.innerHTML = '<p class="col-span-2 text-red-500">Erro ao carregar produtos.</p>';
+            listaProdutos.innerHTML = `<div class="col-span-2 py-10 flex justify-center">
+                <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>`;
+                try{
+                    const response = await fetch(`${API_URL}/produtos?categoriaId=${categoriaId}`);
+                    const produtos = await response.json();
+                    renderizarProdutos(produtos);
+                }catch (error) {
+                    console.error('Erro ao carregar produtos:', error);
+                    listaProdutos.innerHTML = '<p class = "col-span-2 text-red-500">Erro ao carregar produtos.</p>'
+                }
+        }
+
+        function renderizarProdutos(produtos) {
+            listaProdutos.innerHTML = '';
+
+            if (produtos.length === 0) {
+                listaProdutos.innerHTML = '<p class="col-span-2 text-muted py-10"> Nenhum produto nesta categoria.</p>';
+                return;
             }
+            produtos.forEach(p => {
+                const precoFormatado = p.preco.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'});
+                const imgSource = (p.imagem && p.imagem.startsWith('http'))
+                ? p.imagem
+                : `./assets/images/${p.imagem || 'logo.png'}`;
+            const card = document.createElement('div');
+            card.className = "bg-write rounded-[20px] p-3 shadow-sm border border-gray-100 relative flex flex-col hover-col hover:shadow-md transition-shadow group";
+            card.innerHTML = `
+            <div class="absolute insert-0 z-0 cursor-pointer" onclick="abrirModalDetalhes('${p.nome}', ${p.preco}, '${p.descricao || ''}', '${imgSource}', '${p.id}')"> 
+            </div>
+            <img src="${imgSource}" alt="${p.nome}"
+                class="w-full h-24 object-contain mb-2 mt-2 transition-transform duration-300 drop-shadow-sm group-hover:scale-105 pointer-events-none relative z-10" 
+                onerror="this.src='./assets/images/logo.png'">
+            <div clas="text-left w-full mt-auto relative z-10 pointer-events-none">
+                <h4 class="font-bold text-dark text-sm leading-tigth">${p.nome}</h4>
+            </div>
+            <button onclick="adicionarItem('${p.id}', '${p.nome}', '${p.preco}')"
+              class="w-full bg-primary text-white py-2 rounded-xl text-xs font-bold mt-3 shadow-md hover:bg-red-700 active:scale-95 transition-all z-10 relative">
+            Adicionar
+            </button> 
+        `;
+            listaProdutos.appendChild(card);
+            })
         }
 
         carregarCategorias();
