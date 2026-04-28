@@ -184,36 +184,44 @@
         }
 
         function renderizarProdutos(produtos) {
-            listaProdutos.innerHTML = '';
+    listaProdutos.innerHTML = '';
 
-            if (produtos.length === 0) {
-                listaProdutos.innerHTML = '<p class="col-span-2 text-muted py-10"> Nenhum produto nesta categoria.</p>';
-                return;
-            }
-            produtos.forEach(p => {
-                const precoFormatado = p.preco.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'});
-                const imgSource = (p.imagem && p.imagem.startsWith('http'))
-                ? p.imagem
-                : `./assets/images/${p.imagem || 'logo.png'}`;
-            const card = document.createElement('div');
-            card.className = "bg-write rounded-[20px] p-3 shadow-sm border border-gray-100 relative flex flex-col hover-col hover:shadow-md transition-shadow group";
-            card.innerHTML = `
-            <div class="absolute insert-0 z-0 cursor-pointer" onclick="abrirModalDetalhes('${p.nome}', ${p.preco}, '${p.descricao || ''}', '${imgSource}', '${p.id}')"> 
-            </div>
+    if (produtos.length === 0) {
+        listaProdutos.innerHTML = '<p class="col-span-2 text-muted py-10 text-center"> Nenhum produto nesta categoria.</p>';
+        return;
+    }
+
+    produtos.forEach(p => {
+        const precoFormatado = p.preco.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'});
+        const imgSource = (p.imagem && p.imagem.startsWith('http'))
+            ? p.imagem
+            : `./assets/images/${p.imagem || 'logo.png'}`;
+
+        const card = document.createElement('div');
+        // Adicionei h-full para alinhar os botões e bg-white (estava bg-write)
+        card.className = "bg-white rounded-[20px] p-3 shadow-sm border border-gray-100 relative flex flex-col hover:shadow-md transition-all group h-full";
+        
+        card.innerHTML = `
+            <div class="absolute inset-0 z-10 cursor-pointer" onclick="abrirModalDetalhes('${p.nome}', ${p.preco}, '${p.descricao || ''}', '${imgSource}', '${p.id}')"></div>
+            
             <img src="${imgSource}" alt="${p.nome}"
-                class="w-full h-24 object-contain mb-2 mt-2 transition-transform duration-300 drop-shadow-sm group-hover:scale-105 pointer-events-none relative z-10" 
+                class="w-full h-24 object-contain mb-2 mt-2 transition-transform duration-300 drop-shadow-sm group-hover:scale-105 relative z-0" 
                 onerror="this.src='./assets/images/logo.png'">
-            <div clas="text-left w-full mt-auto relative z-10 pointer-events-none">
-                <h4 class="font-bold text-dark text-sm leading-tigth">${p.nome}</h4>
+            
+            <div class="text-left w-full mb-3 relative z-0">
+                <h4 class="font-bold text-dark text-sm leading-tight">${p.nome}</h4>
+                <p class="text-[10px] text-gray-500 line-clamp-2 mt-1 leading-snug">${p.descricao || ''}</p>
+                <p class="text-primary font-bold text-xs mt-1">${precoFormatado}</p>
             </div>
+
             <button onclick="adicionarItem('${p.id}', '${p.nome}', '${p.preco}')"
-              class="w-full bg-primary text-white py-2 rounded-xl text-xs font-bold mt-3 shadow-md hover:bg-red-700 active:scale-95 transition-all z-10 relative">
-            Adicionar
+                class="w-full bg-primary text-white py-2 rounded-xl text-xs font-bold mt-auto shadow-md hover:bg-red-700 active:scale-95 transition-all relative z-20">
+                Adicionar
             </button> 
         `;
-            listaProdutos.appendChild(card);
-            })
-        }
+        listaProdutos.appendChild(card);
+    });
+}
 
         carregarCategorias();
     </script>
