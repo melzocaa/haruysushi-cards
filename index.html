@@ -403,7 +403,7 @@
                 const deltaY = Math.abs(endY - startY);
                 //logica matematica se moveu menos de 10px = clique intencional
                 if (deltaX < 10 && deltaY < 10) {
-                    mudarCategoria(btn.database.cat);
+                    mudarCategoria(btn.dataset.cat);
                 }
             });
             //touchcancel se o celular aparecer uma ligação ou notificação popup
@@ -462,7 +462,7 @@
         const itensContainer = document.getElementById('carrinho-itens-container');
         const modalTotalSpan = document.getElementById('modal-carrinho-total');
         //verifica se o carrinho ja tem itens salvos no localstorage
-        function inicilarCarrinho() {
+        function inicializarCarrinho() {
             const carrinhoSalvo = localStorage.getItem('haruy_carrinho');
             if (carrinhoSalvo) {
                 //se existir algo salvo converte de volta para array e atualiza o carrinho
