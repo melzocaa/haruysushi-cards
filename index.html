@@ -323,6 +323,11 @@
                 <!-- Itens serão injetados aqui via JS -->
             </div>
 
+             <div class="p-5 border-t bg-gray-50 rounded-b-3xl">
+                <input type="text" id="cliente-nome" placeholder="Seu Nome Completo" class="w-full mb-3 p-3 border border-gray-300 rounded-lg outline-none focus:border-primary">
+                <input type="text" id="cliente-endereco" placeholder="Endereço de Entrega (Rua, Número, Bairro)" class="w-full mb-4 p-3 border border-gray-300 rounded-lg outline-none focus:border-primary">
+            </div>
+
             <!-- Rodapé Modal (Checkout) -->
             <div class="p-5 border-t bg-gray-50 rounded-b-3xl sm:rounded-b-2xl">
                 <div class="flex justify-between items-center mb-4">
@@ -331,7 +336,7 @@
                 </div>
                 <button onclick="fecharPedido()" id="btn-fechar-pedido"
                     class="w-full bg-primary text-white py-3 rounded-xl text-lg font-bold shadow-lg hover:bg-red-700 active:scale-95 transition-all">
-                    Fechar Pedido (Usar GPS)
+                    Fechar Pedido
                 </button>
             </div>
         </div>
@@ -584,52 +589,78 @@
             })
         }
 
-        //fechar pedido (gps - api)
-        function fecharPedido() {
+        async function fecharPedido() {
             if (carrinho.length === 0) {
-                const btnPedido = document.getElementById('btn-fechar-pedido');
-                if (!btnPedido) return;
+                alert("Seu carrinho está vazio!");
+                return;
+            }
 
-                const btnOriginalText = btnPedido.innerText;
-                btnPedido.innerText = 'Buscando localização...';
+            const nome = document.getElementById('cliente-nome').value;
+            const endereco = document.getElementById('cliente-endereco').value;
 
-                navigator.geolocation.getCurrentPosition(
-                    //callback de sucesso
-                    (posicao) => {
-                        const lat = posicao.coords.latitude;
-                        const lon = posicao.coords.longitude;
+            if (!nome || !endereco) {
+                alert("Por favor, preencha seu nome e endereço de entrega!");
+                return;
+            }
 
-                        btnPedido.innerText = btnOriginalText;
+            const total = carrinho.reduce((acc, item) => acc + (item.preco * item.quantidade), 0);
+            
+            const payloadPedido = {
+                cliente_nome: nome,
+                cliente_endereco: endereco,
+                itens: carrinho,
+                total: total
+            };
 
-                        alert(`Pedido fechado! \nSua localização: ${lat.toFixed(4)}, ${lon.toFixed(4)}\nOs dados do carrinho serão limpos`);
+            const btnFechar = document.getElementById('btn-fechar-pedido');
+            btnFechar.innerText = "Enviando...";
+            btnFechar.disabled = true;
+            btnFechar.classList.add("opacity-50");
 
-                        carrinho = [];
-                        fecharModalCarrinho();
-                        atualizarCarrinho();
+            try {
+                const resposta = await fetch(`${API_URL}/pedidos`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
                     },
-                    //callback de erro
-                    (erro) => {
-                        btnPedido.innerText = btnOriginalText;
-                        console.error(erro);
-                        alert('Não foi possível obter sua localização.');
-                        carrinho = [];
-                        fecharModalCarrinho();
-                        atualizarCarrinho();
-                    }
-                );
-            }else{
-                alert(`Pedido fechado com sucesso! \n(navegador sem suporte GPS)`);
+                    body: JSON.stringify(payloadPedido)
+                });
+
+                if (!resposta.ok) throw new Error('Erro ao enviar pedido');
+
+                alert("Pedido enviado com sucesso para a cozinha!");
+                
+                // Limpar tudo
+                document.getElementById('cliente-nome').value = '';
+                document.getElementById('cliente-endereco').value = '';
                 carrinho = [];
+                atualizarCarrinho();
                 fecharModalCarrinho();
+            } catch (erro) {
+                console.error(erro);
+                alert("Ops! Ocorreu um problema de conexão. Tente novamente.");
+            } finally {
+                btnFechar.innerText = "Fechar Pedido";
+                btnFechar.disabled = false;
+                btnFechar.classList.remove("opacity-50");
+            }
+        }
+
+        function inicializarCarrinho() {
+            const salvo = localStorage.getItem('haruy_carrinho');
+            if (salvo) {
+                carrinho = JSON.parse(salvo);
                 atualizarCarrinho();
             }
         }
+        
+        carregarCategorias();
         inicializarCarrinho();
 
-        if('serviceWorker' in navigator) {
+        if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('./sw.js')
-                .then(reg => console.log('Service Worker Registrado no Porto! 🍣', reg))
+                .then(reg => console.log('Service Worker Registrado no Porto! 🍱', reg))
                 .catch(err => console.error('Erro ao preparar o sushi: ', err));
             });
         }
